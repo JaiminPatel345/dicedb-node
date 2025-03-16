@@ -1,10 +1,12 @@
 {
   "name": "dicedb-node",
   "version": "1.0.0",
+  "description": "Node.js client sdk of diceDB",
   "type": "module",
   "main": "src/index.ts",
   "repository": "https://github.com/JaiminPatel345/dicedb-node.git",
   "author": "Jaimin Detroja",
+  "keywords": ["dicedb" , "dicedb-node" ,  "node-dicedb" , "node dicedb"],
   "license": "UNLICENSED",
   "scripts": {
     "build": "tsc",
@@ -32,9 +34,8 @@
     "@types/node": "^22.13.10",
     "jest": "^29.7.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
-  },
-  "dependencies": {
+    "typescript": "^5.8.2",
     "ts-jest": "^29.2.6"
   }
+
 }

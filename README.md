@@ -1,9 +1,10 @@
 # dicedb-node
-Node.js SDK for DiceDB
----
-An unofficial Node.js client library for [DiceDB](https://github.com/dicedb/dice) - the fast, reactive, in-memory database optimized for modern hardware.
 
-### Features to be implemented
+[![npm version](https://badge.fury.io/js/dicedb-node.svg)](https://badge.fury.io/js/dicedb-node)
+
+Node.js SDK for DiceDB - An unofficial Node.js client library for [DiceDB](https://github.com/dicedb/dice), the fast, reactive, in-memory database optimized for modern hardware.
+
+## Features to be implemented
 
 - Simple and intuitive API for interacting with DiceDB
 - Promise-based interface with async/await support
