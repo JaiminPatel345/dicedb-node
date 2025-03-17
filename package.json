@@ -1,6 +1,6 @@
 {
   "name": "dicedb-node",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Node.js client sdk of diceDB",
   "type": "module",
   "main": "dist/index.js",
