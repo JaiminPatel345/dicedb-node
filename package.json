@@ -1,6 +1,6 @@
 {
   "name": "dicedb-node",
-  "version": "1.0.1",
+  "version": "0.0.0-development",
   "description": "Node.js client sdk of diceDB",
   "type": "module",
   "main": "dist/index.js",
@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/JaiminPatel345/dicedb-node.git"
+    "url": "git+https://github.com/JaiminPatel345/dicedb-node.git"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org",
