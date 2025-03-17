@@ -1,6 +1,6 @@
 {
   "name": "dicedb-node",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Node.js client sdk of diceDB",
   "type": "module",
   "main": "dist/index.js",
@@ -30,7 +30,9 @@
   "scripts": {
     "build": "tsc",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "preversion": "npm test",
+    "version": "yarn build "
   },
   "jest": {
     "extensionsToTreatAsEsm": [
@@ -49,14 +51,9 @@
     }
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^11.0.1",
-    "@semantic-release/npm": "^12.0.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.10",
     "jest": "^29.7.0",
-    "semantic-release": "^24.2.3",
     "ts-jest": "^29.2.6",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
