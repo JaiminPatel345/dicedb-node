@@ -3,17 +3,21 @@
 [![npm version](https://badge.fury.io/js/dicedb-node.svg)](https://badge.fury.io/js/dicedb-node)
 [![Under Development](https://img.shields.io/badge/status-beta-orange)](https://github.com/jaiminpatel345/dicedb-node)
 
+
+
+
+
 Node.js SDK for DiceDB - An unofficial Node.js client library for [DiceDB](https://github.com/dicedb/dice), the fast,
 reactive, in-memory database optimized for modern hardware.
 
 ### ⚠️ This SDK is in under construction
+- Use this `https://github.com/kisshan13/dicedb.js`
 
 ### 📦 Installation
 
 ```bash
-  npm install dicedb-node
+  npm install dicedb-node 
 ```
-
 **OR**
 
 ```bash

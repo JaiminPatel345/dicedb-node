@@ -1,10 +1,12 @@
-import { Socket } from 'net';
-import { EventEmitter } from 'events';
-import { parseResponse, encodeCommand } from './protocol.js';
+import {Socket} from 'net';
+import {EventEmitter} from 'events';
+import {encodeCommand, parseResponse} from './protocol.js';
 import {ClientOptions} from "./types";
+import {uuid} from "./utils/uuid";
+import * as net from "node:net";
 
 export class DiceClient extends EventEmitter {
-  private socket: Socket | null = null;
+  private socket: net.Socket;
   private host: string;
   private port: number;
   private connected: boolean = false;
@@ -19,6 +21,19 @@ export class DiceClient extends EventEmitter {
     super();
     this.host = options.host || 'localhost';
     this.port = options.port || 7379;
+    this.socket = new net.Socket()
+    this.socket.on('data', data => {
+      console.log("Data cames :",data)
+    })
+
+    this.socket.on('close', () => {
+      console.log("Closing socket")
+    })
+
+    this.socket.on('error', err => {
+      console.log("Error cames :",err)
+    })
+
   }
 
   /**
@@ -27,18 +42,27 @@ export class DiceClient extends EventEmitter {
   public connect(): Promise<void> {
     return new Promise((resolve, reject) => {
       this.socket = new Socket();
+      this.socket.connect(this.port, this.host);
 
-      this.socket.on('connect', () => {
+
+      this.socket.once('connect', () => {
         this.connected = true;
+        const handshake = encodeCommand(
+            ['HANDSHAKE',
+              uuid(),
+              'command',]
+        )
         this.emit('connect');
-        resolve();
+
+        this.socket.write(handshake)
+
+        this.socket.on('data', (data) => {
+          this.buffer += data.toString();
+          console.log("data", data);
+          this.processBuffer();
+        });
       });
 
-      this.socket.on('data', (data) => {
-        this.buffer += data.toString();
-        console.log("data", data);
-        this.processBuffer();
-      });
 
       this.socket.on('error', (err) => {
         this.emit('error', err);
@@ -47,11 +71,9 @@ export class DiceClient extends EventEmitter {
 
       this.socket.on('close', () => {
         this.connected = false;
-        this.socket = null;
         this.emit('close');
       });
 
-      this.socket.connect(this.port, this.host);
     });
   }
 
@@ -82,7 +104,7 @@ export class DiceClient extends EventEmitter {
     }
 
     try {
-      const { value, rest } = parseResponse(this.buffer);
+      const {value, rest} = parseResponse(this.buffer);
       this.buffer = rest;
 
       const command = this.commandQueue.shift();
@@ -94,7 +116,7 @@ export class DiceClient extends EventEmitter {
       if (this.buffer.length > 0) {
         this.processBuffer();
       }
-    } catch (err:any) {
+    } catch (err: any) {
       // Not enough data for a complete response
       if (err.message === 'Incomplete response') {
         return;
@@ -132,7 +154,7 @@ export class DiceClient extends EventEmitter {
   /**
    * Ping the server
    */
-  public ping(message:string): Promise<string> {
+  public ping(message: string): Promise<string> {
     return this.execute([`PING ${message}`]);
   }
 
